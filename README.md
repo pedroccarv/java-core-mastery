@@ -36,6 +36,37 @@ A solução otimizada substituiu o carregamento em lote por um **pipeline de pro
 
 ---
 
+## 🧪 Experimento 02: O Confronto das Collections (ArrayList vs HashSet)
+
+### 📌 O Problema
+Em sistemas de alta disponibilidade (como motores de antifraude), é comum precisarmos verificar se um elemento existe dentro de uma grande base de dados em memória. O objetivo deste laboratório foi provar o impacto da escolha da estrutura de dados correta ao realizar buscas.
+
+### ⚔️ O Cenário
+Foram gerados **5.000.000 de UUIDs** aleatórios e inseridos simultaneamente em uma `ArrayList` e em um `HashSet`. Em seguida, o algoritmo foi instruído a buscar o **último ID inserido** em ambas as estruturas, forçando o pior cenário possível (Worst-Case Scenario) para a Lista.
+
+### 📊 Resultados e Complexidade Algorítmica
+
+* **Busca na ArrayList (Complexidade O(n)):** Levou cerca de **182 ms**. A lista precisou iterar sequencialmente sobre 4.999.999 elementos até encontrar a correspondência (`.equals()`).
+* **Busca no HashSet (Complexidade O(1)):** Tempo virtualmente instantâneo. Utilizando o `hashCode()` do objeto, a JVM calcula o *bucket* exato de memória e acessa o elemento diretamente, sem iterações.
+
+**Conclusão:** O uso de Tabelas Hash (como `HashSet` ou `HashMap`) é obrigatório para otimização de buscas em grandes volumes de dados na memória principal, eliminando o gargalo de iteração linear.
+
+---
+
+## 🧪 Experimento 03: Processamento Funcional com Stream API
+
+### 📌 O Problema
+Extrair inteligência de uma lista de dados brutos (Vendas) sem utilizar estruturas de controle imperativas (`for`, `if`, variáveis temporárias de soma), garantindo um código mais legível, conciso e menos suscetível a erros de estado.
+
+### 🛠️ A Solução
+Utilização de **Stream API**, **Lambdas** e **Method References** para criar um pipeline de dados que realiza três operações em sequência:
+1. **Filtragem:** Seleção apenas de registros com status "APROVADA".
+2. **Agrupamento:** Separação dos dados por categorias lógicas utilizando `Collectors.groupingBy`.
+3. **Agregação:** Soma monetária dos valores de cada categoria via `Collectors.summingDouble`.
+
+### 💡 O Aprendizado
+A migração do paradigma imperativo para o funcional permite que o desenvolvedor foque na regra de negócio. Além disso, o uso de `Records` (Java 16+) trouxe imutabilidade e clareza para o modelo de dados do experimento.
+
 ## 🛠️ Tecnologias Utilizadas
 * **Java 21+**
 * `java.nio.file` (New I/O)
